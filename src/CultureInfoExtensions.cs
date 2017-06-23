@@ -4,7 +4,7 @@ namespace System.Globalization
 {
 	public static class CultureInfoExtensions
 	{
-		private static readonly Dictionary<string, string> _twoToThreeLookup = new Dictionary<string, string>
+		private static readonly Dictionary<string, string> TwoLetterISOLanguageCodeToThreeLetterISOLanguageCode = new Dictionary<string, string>
 		{
 			{"aa","aar"},
 			{"ab","abk"},
@@ -194,7 +194,7 @@ namespace System.Globalization
 		
 		public static string ThreeLetterISOLanguageName(this CultureInfo cultureInfo)
 		{
-			return _twoToThreeLookup[cultureInfo.TwoLetterISOLanguageName];
+			return TwoLetterISOLanguageCodeToThreeLetterISOLanguageCode[cultureInfo.TwoLetterISOLanguageName];
 		}
 	}
 }
