@@ -890,7 +890,7 @@ namespace TagLib.Id3v2 {
 					FrameId == FrameType.TPE2 ||
 					FrameId == FrameType.TPE3 ||
 					FrameId == FrameType.TPE4) {
-					field_list.AddRange (value.Split ('/'));
+					field_list.AddRange (value.Split(new string[] { " / ", "/" }, StringSplitOptions.RemoveEmptyEntries));
 				} else if (FrameId == FrameType.TCON) {
 					while (value.Length > 1 && value [0] == '(') {
 						int closing = value.IndexOf (')');
@@ -912,7 +912,7 @@ namespace TagLib.Id3v2 {
 					}
 					
 					if (value.Length > 0)
-						field_list.AddRange (value.Split (new char [] {'/'}));
+						field_list.AddRange (value.Split(new string[] { " / ", "/" }, StringSplitOptions.RemoveEmptyEntries));
 				} else {
 					field_list.Add (value);
 				}
