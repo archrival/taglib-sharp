@@ -283,6 +283,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
+    <None Include="project.json" />
     <None Include="TagLib\TagLib.sources" />
   </ItemGroup>
 </Project>

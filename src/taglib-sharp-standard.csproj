@@ -27,10 +27,6 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="StandardImplementations\StandardImplementations.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
     <DefaultItemExcludes>$(DefaultItemExcludes);*.in;*.am;project*.json;**\TagLib.sources</DefaultItemExcludes>
   </PropertyGroup>
