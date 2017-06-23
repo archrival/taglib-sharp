@@ -1287,14 +1287,18 @@ namespace TagLib.Id3v2 {
 					"Description must not be empty.",
 					"description");
 					
-			StringComparison stringComparison =
-				caseSensitive ? StringComparison.InvariantCulture :
-					StringComparison.InvariantCultureIgnoreCase;
+			StringComparer comparer;
+
+#if NETSTANDARD1_4
+			comparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(caseSensitive ? CompareOptions.None : CompareOptions.IgnoreCase);
+#else
+            comparer = caseSensitive ? StringComparer.InvariantCulture : StringComparer.InvariantCultureIgnoreCase;
+#endif
 			
 			foreach (UserTextInformationFrame frame in
 				tag.GetFrames<UserTextInformationFrame> (
 					FrameType.TXXX))
-				if (description.Equals (frame.Description, stringComparison))
+				if (comparer.Equals (description, frame.Description))
 					return frame;
 			
 			if (!create)

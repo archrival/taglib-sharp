@@ -2508,9 +2508,9 @@ namespace TagLib {
 			case StringType.UTF16LE:
 				return Encoding.Unicode;
 			}
-			
+
 			if (use_broken_latin1)
-				return Encoding.Default;
+				return Encoding.ASCII;
 			
 			try {
 				return Encoding.GetEncoding ("latin1");
