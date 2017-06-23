@@ -47,8 +47,12 @@ namespace TagLib.Id3v2 {
 		///    Contains the language to use for language specific
 		///    fields.
 		/// </summary>
-		private static string language = 
+		private static string language =
+#if NETSTANDARD1_4
+			CultureInfo.CurrentCulture.ThreeLetterISOLanguageName();
+#else
 			CultureInfo.CurrentCulture.ThreeLetterISOLanguageName;
+#endif
 		
 		/// <summary>
 		///    Contains the field to use for new tags.
@@ -1948,7 +1952,7 @@ namespace TagLib.Id3v2 {
 				if (text == null) {
 					return double.NaN;
 				}
-				if (text.ToLower(CultureInfo.InvariantCulture).EndsWith("db")) {
+				if (text.ToLowerInvariant().EndsWith("db")) {
 					text = text.Substring (0, text.Length - 2).Trim();
 				}
 				
@@ -2021,7 +2025,7 @@ namespace TagLib.Id3v2 {
 				if (text == null) {
 					return double.NaN;
 				}
-				if (text.ToLower(CultureInfo.InvariantCulture).EndsWith("db")) {
+				if (text.ToLowerInvariant().EndsWith("db")) {
 					text = text.Substring (0, text.Length - 2).Trim();
 				}
 				

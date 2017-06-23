@@ -475,11 +475,16 @@ namespace TagLib.Ape {
 			if (key == null)
 				throw new ArgumentNullException ("key");
 			
-			StringComparison comparison =
-				StringComparison.InvariantCultureIgnoreCase;
+			StringComparer comparer;
+			
+#if NETSTANDARD1_4
+			comparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
+#else
+            comparer = StringComparer.InvariantCultureIgnoreCase;
+#endif
 			
 			foreach (Item item in items)
-				if (key.Equals (item.Key, comparison))
+				if (comparer.Equals (key, item.Key))
 					return item;
 			
 			return null;
@@ -518,11 +523,16 @@ namespace TagLib.Ape {
 			if (key == null)
 				throw new ArgumentNullException ("key");
 			
-			StringComparison comparison =
-				StringComparison.InvariantCultureIgnoreCase;
+			StringComparer comparer;
+			
+#if NETSTANDARD1_4
+			comparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
+#else
+            comparer = StringComparer.InvariantCultureIgnoreCase;
+#endif
 			
 			for (int i = items.Count - 1; i >= 0; i --)
-				if (key.Equals (items [i].Key, comparison))
+				if (comparer.Equals (key, items [i].Key))
 					items.RemoveAt (i);
 		}
 		
@@ -682,11 +692,16 @@ namespace TagLib.Ape {
 		/// </remarks>
 		private int GetItemIndex (string key)
 		{
-			StringComparison comparison =
-				StringComparison.InvariantCultureIgnoreCase;
+			StringComparer comparer;
+			
+#if NETSTANDARD1_4
+			comparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
+#else
+            comparer = StringComparer.InvariantCultureIgnoreCase;
+#endif
 			
 			for (int i = 0; i < items.Count; i ++)
-				if (key.Equals (items [i].Key, comparison))
+				if (comparer.Equals (key, items [i].Key))
 					return i;
 			
 			return -1;
@@ -1441,7 +1456,7 @@ namespace TagLib.Ape {
 				{
 					return double.NaN;
 				}
-				if (text.ToLower(CultureInfo.InvariantCulture).EndsWith("db"))
+				if (text.ToLowerInvariant().EndsWith("db"))
 				{
 					text = text.Substring(0, text.Length - 2).Trim();
 				}
@@ -1532,7 +1547,7 @@ namespace TagLib.Ape {
 				{
 					return double.NaN;
 				}
-				if (text.ToLower(CultureInfo.InvariantCulture).EndsWith("db"))
+				if (text.ToLowerInvariant().EndsWith("db"))
 				{
 					text = text.Substring(0, text.Length - 2).Trim();
 				}

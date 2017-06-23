@@ -1,4 +1,4 @@
-//
+﻿//
 // File.cs: Provides a basic framework for reading from and writing to
 // a file, as well as accessing basic tagging and media properties.
 //
@@ -1394,9 +1394,8 @@ namespace TagLib {
 				if(index >= 1 && index < abstraction.Name.Length)
 					ext = abstraction.Name.Substring (index,
 						abstraction.Name.Length - index);
-				
-				mimetype = "taglib/" + ext.ToLower(
-					CultureInfo.InvariantCulture);
+
+				mimetype = "taglib/" + ext.ToLowerInvariant();
 			}
 			
 			foreach (FileTypeResolver resolver in file_type_resolvers) {
@@ -1477,20 +1476,22 @@ namespace TagLib {
         /// <param name="ex"></param>
 		private static void PrepareExceptionForRethrow(Exception ex)
 		{
-            var ctx = new StreamingContext(StreamingContextStates.CrossAppDomain);
+#if !NETSTANDARD1_4
+			var ctx = new StreamingContext(StreamingContextStates.CrossAppDomain);
             var mgr = new ObjectManager(null, ctx);
             var si = new SerializationInfo(ex.GetType(), new FormatterConverter());
 
             ex.GetObjectData(si, ctx);
             mgr.RegisterObject(ex, 1, si); // prepare for SetObjectData
             mgr.DoFixups(); // ObjectManager calls SetObjectData
+#endif
 		}
 
 		#endregion
 		
 		
 		
-		#region Classes
+#region Classes
 		
 		/// <summary>
 		///    This class implements <see cref="IFileAbstraction" />
@@ -1584,16 +1585,20 @@ namespace TagLib {
 			{
 				if (stream == null)
 					throw new ArgumentNullException ("stream");
-				
+#if NETSTANDARD1_4
+				stream.Dispose();
+#else
 				stream.Close ();
+#endif
+
 			}
 		}
 		
-		#endregion
+#endregion
 		
 		
 		
-		#region Interfaces
+#region Interfaces
 		
 		/// <summary>
 		///    This interface provides abstracted access to a file. It
@@ -1761,6 +1766,6 @@ namespace TagLib {
 			void CloseStream (System.IO.Stream stream);
 		}
 		
-		#endregion
+#endregion
 	}
 }

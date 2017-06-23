@@ -105,7 +105,9 @@ namespace TagLib.Riff {
 			file.Seek (position);
 			Parse (file.ReadBlock (length));
 		}
-		
+
+#if !NETSTANDARD1_4
+
 		/// <summary>
 		///    Constructs and initializes a new instance of <see
 		///    cref="List" /> from a specified serialization info and
@@ -129,12 +131,13 @@ namespace TagLib.Riff {
 			: base (info, context)
 		{
 		}
+#endif
 #endregion
 		
-		
-		
-#region Public Methods
-		
+
+
+		#region Public Methods
+
 		/// <summary>
 		///    Renders the current instance as a raw RIFF list.
 		/// </summary>

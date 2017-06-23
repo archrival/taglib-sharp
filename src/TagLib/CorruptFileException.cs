@@ -140,7 +140,8 @@ namespace TagLib {
 			: base (message, innerException)
 		{
 		}
-		
+
+#if !NETSTANDARD1_4
 		/// <summary>
 		///    Constructs and initializes a new instance of <see
 		///    cref="CorruptFileException" /> from a specified
@@ -164,5 +165,6 @@ namespace TagLib {
 			: base(info, context)
 		{
 		}
+#endif
 	}
 }
